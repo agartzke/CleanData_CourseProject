@@ -3,11 +3,13 @@
 In order to process the data downloaded for this assignment, run the run_analysis.R script with the data files in your working directory (in the 'data' directory).
 
 **Assignment Step 1 - Merge the data**
+
 This step merges the disparate files into a single data frame for further processing.
-1. Load all test data into six separate data frames (subject, x, and y for both test and train data)
-2. Check that the data is clean and can be assembled (no NAs, same dimensions prior to binding)
-3. Merge the test and train data separately using cbind() to create a single data frame for test and one for train
-4. Combine the test and train data frames using rbind() to create a single data set
+
+  1. Load all test data into six separate data frames (subject, x, and y for both test and train data)
+  2. Check that the data is clean and can be assembled (no NAs, same dimensions prior to binding)
+  3. Merge the test and train data separately using cbind() to create a single data frame for test and one for train
+  4. Combine the test and train data frames using rbind() to create a single data set
 
 **Assignment Step 4- Use appropriate variable names**
 Performing this step out of order, allowed an easier mapping of the data columns which already existed in a file
