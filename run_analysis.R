@@ -1,5 +1,6 @@
 # Course Project - Getting and Cleaning Data
 library(plyr)
+library(reshape2)
 
 # Load all test data
 subject_test <- read.table("./data/test/subject_test.txt")
@@ -32,14 +33,12 @@ test_data <- cbind(subject_test, y_test, x_test)
 train_data <- cbind(subject_train, y_train, x_train)
 merged_data <- rbind(test_data, train_data)
 
-# Load features data to map to column names
+# Appropriate labels with descriptive variable names
 features_list <- read.table("./data/features.txt")
 column_names <- rbind(c("Subject", "Activity", as.character(features_list[[2]])))
-
 if (length(merged_data) != length(column_names)) {
   stop('Different number of columns than names')
 }
-
 names(merged_data) <- column_names
 
 # Extracts only the measurements on the mean and std. dev. for each measure
@@ -50,14 +49,16 @@ extracted_data <- subset(merged_data, select=select_columns)
 
 # Uses descriptive activity names
 activities_list <- read.table("./data/activity_labels.txt")
-merged_data$Activity <- as.character(activities_list[match(merged_data$Activity, activities_list$V1), "V2"])
-merged_data$Activity <- as.factor(merged_data$Activity)
+extracted_data$Activity <- as.character(activities_list[match(extracted_data$Activity, activities_list$V1), "V2"])
+extracted_data$Activity <- as.factor(extracted_data$Activity)
 
-# Appropriate labels with descriptive variable names
+# build up distinct tidy data set for output - melt into skinny version, aggregate and dcast back to summarized data frame
+mdata <- melt(extracted_data, id.vars=c("Subject", "Activity"))
+avg_data <- ddply(mdata, .(Subject, Activity, variable), summarize, mean=mean(value))
+tidy_data <- dcast(avg_data, Subject + Activity ~ variable, value.var="mean")
 
 # Generates secondary tidy data set
-
-
+write.table(tidy_data, "tidydata.txt", row.names=FALSE)
 
 
 
