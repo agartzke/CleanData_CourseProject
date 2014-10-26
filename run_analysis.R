@@ -47,6 +47,10 @@ names(merged_data) <- column_names
 select_columns <- grepl("Subject|Activity|Mean|mean|Std|std", column_names)
 extracted_data <- subset(merged_data, select=select_columns)
 
+# Drop angle columns
+#select_columns <- !grepl("angle", column_names)
+#clean_data <- subset(extracted_data, select=select_columns)
+
 # Uses descriptive activity names
 activities_list <- read.table("./data/activity_labels.txt")
 extracted_data$Activity <- as.character(activities_list[match(extracted_data$Activity, activities_list$V1), "V2"])
