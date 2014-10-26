@@ -12,27 +12,35 @@ This step merges the disparate files into a single data frame for further proces
   4. Combine the test and train data frames using rbind() to create a single data set
 
 **Assignment Step 4- Use appropriate variable names**
+
 Performing this step out of order, allowed an easier mapping of the data columns which already existed in a file
-1. Load the features.txt file into a DF to apply to full data frame column names
-2. Prepend the list of features with "Subject" and "Activity" to ensure columns lineup with names
-3. Make sure the lengths match before doing so
+
+  1. Load the features.txt file into a DF to apply to full data frame column names
+  2. Prepend the list of features with "Subject" and "Activity" to ensure columns lineup with names
+  3. Make sure the lengths match before doing so
 
 **Assignment Step 2 - Extract only measures with mean and std dev**
+
 I chose to include the angle variables based on research in the class forum - there is some debate whether they should be
-1. Using a regex to find any column name with "Subject", "Activity", "Mean", or "Std" and produce a selection vector
-2. Apply the vector to subset the merged data frame, yielding only the correct columns (see code book below for definitions)
+
+  1. Using a regex to find any column name with "Subject", "Activity", "Mean", or "Std" and produce a selection vector
+  2. Apply the vector to subset the merged data frame, yielding only the correct columns (see code book below for definitions)
 
 **Assignment Step 3 - Use descriptive Activity Names**
+
 Again, I used the a lookup for this, the activities_label.txt file
-1. Load the lookup file
-2. Apply this short vector against the entire data frame's Activity column and change them from numbers to factors
+
+  1. Load the lookup file
+  2. Apply this short vector against the entire data frame's Activity column and change them from numbers to factors
 
 **Assignment Step 5 - Create unique tidy data set with average of each variable for each activity and subject**
+
 Using the reshape library, we build a new tidy data set
-1. Melt the data frame using Subject and Activity as ID variables, the rest as measures
-2. Use ddply to apply a summarizing pass using the mean function on all data
-3. dcast the results into a small data frame by collapsing the data by Subject and Activity - averaging all data
-4. Write the tidy data set to disk
+
+  1. Melt the data frame using Subject and Activity as ID variables, the rest as measures
+  2. Use ddply to apply a summarizing pass using the mean function on all data
+  3. dcast the results into a small data frame by collapsing the data by Subject and Activity - averaging all data
+  4. Write the tidy data set to disk
 
 
 #Code Book
